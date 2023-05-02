@@ -1,0 +1,28 @@
+service: tokenizer
+frameworkVersion: '3'
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  createToken:
+    handler: src/controllers/tokens.createToken
+    events:
+      - httpApi:
+          path: /tokens
+          method: post
+
+  getCardData:
+    handler: src/controllers/tokens.getCardData
+    events:
+      - httpApi:
+          path: /tokens/{token}
+          method: get
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
